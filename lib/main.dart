@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'row_and_buttons.dart';
-import 'drop_down_button.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,6 +11,9 @@ class MyApp extends StatefulWidget {
 
 class _State extends State<MyApp> {
   final _formKey = GlobalKey<FormState>();
+  String _dropdownValue = 'Selecione';
+  String _userText;
+  String _textConverted;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,35 +28,62 @@ class _State extends State<MyApp> {
             child: Column(
               children: [
                 TextFormField(
+                  maxLines: 5,
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     filled: true,
-                    hintText: 'Insira o texto aqui..',
+                    hintText: 'Insira o texto aqui...',
                     labelText: 'Seu Texto',
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Por favor insira um texto.';
                     }
                     return null;
                   },
-                  maxLines: 5,
+                  onChanged: (text) {
+                    this._userText = text;
+                    print("First text field: $text");
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DropDownButton(),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButton<String>(
+                          value: _dropdownValue,
+                          icon: Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _dropdownValue = newValue;
+                            });
+                          },
+                          items: <String>[
+                            'Selecione',
+                            'Reverso',
+                            'MAÍUSCULAS',
+                            'minúsculas',
+                            'aLtErNaDo'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a Snackbar.
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+                            print('Validado');
+                            print('_dropdownValue: $_dropdownValue');
+                            print('_userText: $_userText');
+
+
                           }
                         },
                         child: const Text(
