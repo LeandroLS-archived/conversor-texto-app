@@ -1,51 +1,16 @@
+import 'package:conversor_texto_app/RowAndButtons.dart';
 import 'package:flutter/material.dart';
+import 'text_field_converted.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _State createState() => _State();
-}
+class MyApp extends StatelessWidget {
+  
+  final formKey = GlobalKey<FormState>();
 
-class _State extends State<MyApp> {
-  final _formKey = GlobalKey<FormState>();
-  String _dropdownValue = 'Selecione';
   String _userText;
-  static const List<String> opcoes = [
-    'Selecione',
-    'Reverso',
-    'MAÍUSCULAS',
-    'minúsculas',
-  ];
-  final _myController = TextEditingController();
-
-  textToUpper(String str) {
-    return str.toUpperCase();
-  }
-
-  textToLower(String str) {
-    return str.toLowerCase();
-  }
-
-  textReversed(String str) {
-    return str.split('').reversed.join();
-  }
-
-  convertText(String str) {
-    switch (_dropdownValue) {
-      case 'Reverso':
-        return textReversed(str);
-        break;
-      case 'MAÍUSCULAS':
-        return textToUpper(str);
-        break;
-      case 'minúsculas':
-        return textToLower(str);
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +22,7 @@ class _State extends State<MyApp> {
         body: Container(
           padding: EdgeInsets.all(20),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: [
                 TextFormField(
@@ -81,57 +46,9 @@ class _State extends State<MyApp> {
                 ),
                 Container(
                   margin: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 125,
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          validator: (value) => value == 'Selecione'
-                              ? 'Selecione um valor.'
-                              : null,
-                          value: _dropdownValue,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              _dropdownValue = newValue;
-                            });
-                          },
-                          items: opcoes
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      Container(
-                        child: RaisedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                _myController.text = convertText(_userText);
-                              });
-                            }
-                          },
-                          child: const Text(
-                            'Converter',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: RowAndButtons(formKey)
                 ),
-                TextFormField(
-                  maxLines: 5,
-                  controller: _myController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    labelText: 'Resultado',
-                  ),
-                ),
+                TextFieldConverted()
               ],
             ),
           ),

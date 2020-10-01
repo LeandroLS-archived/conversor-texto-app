@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'classes/HandleText.dart';
 
 class DropDownButton extends StatefulWidget {
   @override
@@ -6,22 +7,20 @@ class DropDownButton extends StatefulWidget {
 }
 
 class _DropDownButtonState extends State<DropDownButton> {
-  
-  String dropdownValue = 'Selecione';
+  String _dropdownValue = 'Selecione';
+
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 16,
+    return DropdownButtonFormField<String>(
+      decoration: InputDecoration.collapsed(hintText: ''),
+      validator: (value) => value == 'Selecione' ? 'Selecione um valor.' : null,
+      value: _dropdownValue,
       onChanged: (String newValue) {
         setState(() {
-          dropdownValue = newValue;
+          _dropdownValue = newValue;
         });
       },
-      items: <String>['Selecione', 'Reverso', 'MAÍUSCULAS', 'minúsculas', 'aLtErNaDo']
-          .map<DropdownMenuItem<String>>((String value) {
+      items: HandleText.opcoes.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
