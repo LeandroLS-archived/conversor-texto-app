@@ -79,47 +79,49 @@ class _State extends State<MyApp> {
                     print("First text field: $text");
                   },
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 135,
-                      child: DropdownButtonFormField<String>(
-                        validator: (value) => value == 'Selecione' ? 'Selecione um valor.' : null,
-                        value: _dropdownValue,
-                        icon: Icon(Icons.arrow_downward),
-                        iconSize: 24,
-                        elevation: 16,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            _dropdownValue = newValue;
-                          });
-                        },
-                        items: opcoes
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RaisedButton(
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 125,
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration.collapsed(hintText: ''),
+                          validator: (value) => value == 'Selecione'
+                              ? 'Selecione um valor.'
+                              : null,
+                          value: _dropdownValue,
+                          onChanged: (String newValue) {
                             setState(() {
-                              _myController.text = convertText(_userText);
+                              _dropdownValue = newValue;
                             });
-                          }
-                        },
-                        child: const Text(
-                          'Converter',
+                          },
+                          items: opcoes
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        child: RaisedButton(
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              setState(() {
+                                _myController.text = convertText(_userText);
+                              });
+                            }
+                          },
+                          child: const Text(
+                            'Converter',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 TextFormField(
                   maxLines: 5,
