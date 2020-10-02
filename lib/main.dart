@@ -56,84 +56,89 @@ class _State extends State<MyApp> {
         ),
         body: Container(
           padding: EdgeInsets.all(20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    hintText: 'Insira o texto aqui...',
-                    labelText: 'Seu Texto',
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Por favor insira um texto.';
-                    }
-                    return null;
-                  },
-                  onChanged: (text) {
-                    this._userText = text;
-                    print("First text field: $text");
-                  },
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 125,
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration.collapsed(hintText: ''),
-                          validator: (value) => value == 'Selecione'
-                              ? 'Selecione um valor.'
-                              : null,
-                          value: _dropdownValue,
-                          onChanged: (String newValue) {
-                            setState(() {
-                              _dropdownValue = newValue;
-                            });
-                          },
-                          items: opcoes
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
+          child: Column(
+            children: [
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        filled: true,
+                        hintText: 'Insira o texto aqui...',
+                        labelText: 'Seu Texto',
                       ),
-                      Container(
-                        child: RaisedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                _myController.text = convertText(_userText);
-                              });
-                            }
-                          },
-                          child: const Text(
-                            'Converter',
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Por favor insira um texto.';
+                        }
+                        return null;
+                      },
+                      onChanged: (text) {
+                        this._userText = text;
+                        print("First text field: $text");
+                      },
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            width: 125,
+                            child: DropdownButtonFormField<String>(
+                              decoration:
+                                  InputDecoration.collapsed(hintText: ''),
+                              validator: (value) => value == 'Selecione'
+                                  ? 'Selecione um valor.'
+                                  : null,
+                              value: _dropdownValue,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  _dropdownValue = newValue;
+                                });
+                              },
+                              items: opcoes.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
                           ),
-                        ),
+                          Container(
+                            child: RaisedButton(
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  setState(() {
+                                    _myController.text = convertText(_userText);
+                                  });
+                                }
+                              },
+                              child: const Text(
+                                'Converter',
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                TextFormField(
-                  maxLines: 5,
-                  controller: _myController,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    labelText: 'Resultado',
-                  ),
+              ),
+              TextFormField(
+                maxLines: 5,
+                controller: _myController,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'Resultado',
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
