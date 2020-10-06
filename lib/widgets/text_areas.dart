@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../TextConverter.dart';
 
 class TextAreas extends StatefulWidget {
   @override
@@ -17,28 +18,16 @@ class _TextAreasState extends State<TextAreas> {
   ];
   final _myController = TextEditingController();
 
-  textToUpper(String str) {
-    return str.toUpperCase();
-  }
-
-  textToLower(String str) {
-    return str.toLowerCase();
-  }
-
-  textReversed(String str) {
-    return str.split('').reversed.join();
-  }
-
   convertText(String str) {
     switch (_dropdownValue) {
       case 'Reverso':
-        return textReversed(str);
+        return TextConverter.textReversed(str);
         break;
       case 'MAÍUSCULAS':
-        return textToUpper(str);
+        return TextConverter.textToUpper(str);
         break;
       case 'minúsculas':
-        return textToLower(str);
+        return TextConverter.textToLower(str);
         break;
     }
   }
@@ -98,6 +87,8 @@ class _TextAreasState extends State<TextAreas> {
                     ),
                     Container(
                       child: RaisedButton(
+                        color: Theme.of(context).primaryColor,
+                        textColor: Colors.white,
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             setState(() {
@@ -119,6 +110,7 @@ class _TextAreasState extends State<TextAreas> {
         TextFormField(
           maxLines: 5,
           controller: _myController,
+          enabled: false,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             filled: true,
