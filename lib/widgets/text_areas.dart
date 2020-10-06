@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../TextConverter.dart';
+import '../widgets/text_details_bar.dart';
 
 class TextAreas extends StatefulWidget {
   @override
@@ -36,6 +37,7 @@ class _TextAreasState extends State<TextAreas> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        TextDetailsBar(),
         Form(
           key: _formKey,
           child: Column(
