@@ -17,6 +17,7 @@ class _TextAreasState extends State<TextAreas> {
     'MAÍUSCULAS',
     'minúsculas',
   ];
+
   final _myController = TextEditingController();
 
   convertText(String str) {
@@ -37,7 +38,7 @@ class _TextAreasState extends State<TextAreas> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextDetailsBar(),
+        TextDetailsBar(this._userText),
         Form(
           key: _formKey,
           child: Column(
@@ -58,7 +59,6 @@ class _TextAreasState extends State<TextAreas> {
                 },
                 onChanged: (text) {
                   this._userText = text;
-                  print("First text field: $text");
                 },
               ),
               Container(
