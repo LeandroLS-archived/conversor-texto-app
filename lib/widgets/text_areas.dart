@@ -38,19 +38,21 @@ class _TextAreasState extends State<TextAreas> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TextDetailsBar(this._userText),
         Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
+              TextDetailsBar(this._userText),
               Card(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     filled: true,
                     hintText: 'Insira o texto aqui...',
                     labelText: 'Seu Texto',
