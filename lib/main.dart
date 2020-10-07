@@ -19,7 +19,11 @@ class _State extends State<MyApp> {
         accentColor: Colors.green,
       ),
       home: Scaffold(
+<<<<<<< HEAD
         backgroundColor: const Color(0xffe1e4fa),
+=======
+        // backgroundColor: Colors.,
+>>>>>>> 6d3fbdd1a3ffad847ce8e8edc3e2cce2cda9c832
         appBar: AppBar(
           title: Text('Conversor de Texto'),
         ),
