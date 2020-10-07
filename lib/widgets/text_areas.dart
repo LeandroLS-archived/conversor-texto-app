@@ -44,7 +44,7 @@ class _TextAreasState extends State<TextAreas> {
                 child: TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
+                    border: OutlineInputBorder(),
                     filled: true,
                     hintText: 'Insira o texto aqui...',
                     labelText: 'Seu Texto',
@@ -115,7 +115,7 @@ class _TextAreasState extends State<TextAreas> {
             controller: _myController,
             enabled: false,
             decoration: InputDecoration(
-              border: const OutlineInputBorder(),
+              border: OutlineInputBorder(),
               filled: true,
               labelText: 'Resultado',
             ),

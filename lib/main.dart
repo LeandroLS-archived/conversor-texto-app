@@ -16,7 +16,7 @@ class _State extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        accentColor: Colors.green,
+        accentColor: Colors.green[50],
       ),
       home: Scaffold(
         backgroundColor: const Color(0xfff0ffff),
