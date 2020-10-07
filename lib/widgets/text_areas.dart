@@ -70,39 +70,52 @@ class _TextAreasState extends State<TextAreas> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      width: 125,
-                      child: DropdownButtonFormField<String>(
-                        decoration: InputDecoration.collapsed(hintText: ''),
-                        validator: (value) =>
-                            value == 'Selecione' ? 'Selecione um valor.' : null,
-                        value: _dropdownValue,
-                        onChanged: (String newValue) {
-                          setState(() {
-                            _dropdownValue = newValue;
-                          });
-                        },
-                        items: opcoes
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      width: 140,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 3, right: 3),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration.collapsed(hintText: ''),
+                            validator: (value) => value == 'Selecione'
+                                ? 'Selecione um valor.'
+                                : null,
+                            value: _dropdownValue,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                _dropdownValue = newValue;
+                              });
+                            },
+                            items: opcoes
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Container(
-                      child: RaisedButton(
-                        color: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              _myController.text = convertText(_userText);
-                            });
-                          }
-                        },
-                        child: const Text(
-                          'Converter',
+                      child: ButtonTheme(
+                        // minWidth: 200.0,
+                        height: 48.0,
+                        child: RaisedButton(
+                          color: Theme.of(context).primaryColor,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              setState(() {
+                                _myController.text = convertText(_userText);
+                              });
+                            }
+                          },
+                          child: const Text(
+                            'Converter',
+                          ),
                         ),
                       ),
                     ),
@@ -120,8 +133,9 @@ class _TextAreasState extends State<TextAreas> {
             controller: _myController,
             enabled: false,
             decoration: InputDecoration(
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
               filled: true,
               labelText: 'Resultado',
             ),
