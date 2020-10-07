@@ -41,10 +41,13 @@ class _TextAreasState extends State<TextAreas> {
           child: Column(
             children: <Widget>[
               Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 child: TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
                     filled: true,
                     hintText: 'Insira o texto aqui...',
                     labelText: 'Seu Texto',
@@ -110,12 +113,15 @@ class _TextAreasState extends State<TextAreas> {
           ),
         ),
         Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: TextFormField(
             maxLines: 5,
             controller: _myController,
             enabled: false,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
               filled: true,
               labelText: 'Resultado',
             ),
