@@ -64,7 +64,9 @@ class _TextAreasState extends State<TextAreas> {
                     return null;
                   },
                   onChanged: (text) {
-                    this._userText = text;
+                     setState(() {
+                        this._userText = text;
+                      });
                     print("First text field: $text");
                   },
                 ),

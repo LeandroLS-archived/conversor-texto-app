@@ -38,7 +38,7 @@ class _TextDetailsBarState extends State<TextDetailsBar> {
               margin: EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
-                  Text('Linhas'),
+                  Text(widget.userText.toString()),
                   Text('3'),
                 ],
               ),
