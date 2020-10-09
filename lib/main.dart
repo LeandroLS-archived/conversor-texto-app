@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'widgets/text_areas.dart';
-
 void main() {
   runApp(MyApp());
 }
