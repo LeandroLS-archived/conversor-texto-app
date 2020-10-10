@@ -79,104 +79,87 @@ class _TextAreasState extends State<TextAreas> {
                   children: <Widget>[
                     Container(
                       width: 140,
+                      height: 43,
                       child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 3, right: 3),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration.collapsed(hintText: ''),
-                            validator: (value) => value == 'Selecione'
-                                ? 'Selecione um valor.'
-                                : null,
-                            value: _dropdownValue,
-                            onChanged: (String newValue) {
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            DropdownButtonFormField<String>(
+                              decoration:
+                                  InputDecoration.collapsed(hintText: ''),
+                              validator: (value) => value == 'Selecione'
+                                  ? 'Selecione um valor.'
+                                  : null,
+                              value: _dropdownValue,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  _dropdownValue = newValue;
+                                });
+                              },
+                              items: opcoes.map<DropdownMenuItem<String>>(
+                                  (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
                               setState(() {
-                                _dropdownValue = newValue;
+                                textConvertedController.text =
+                                    convertText(_userText);
                               });
-                            },
-                            items: opcoes
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                            }
+                          },
+                          child: Icon(
+                            Icons.sync,
+                            color: Colors.white,
+                            size: 26,
+                            semanticLabel: 'Converter',
                           ),
                         ),
                       ),
                     ),
                     Flexible(
                       child: Container(
-                        child: ButtonTheme(
-                          minWidth: 1,
-
-                          // minWidth: 200.0,
-                          height: 48.0,
-                          child: RaisedButton(
-                            textColor: Colors.white,
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  textConvertedController.text =
-                                      convertText(_userText);
-                                });
-                              }
-                            },
-                            child: Icon(
-                              Icons.sync,
-                              color: Colors.white,
-                              size: 36.0,
-                              semanticLabel: 'Converter',
-                            ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              setState(() {
+                                this._userText = '';
+                                userTextController.text = '';
+                                textConvertedController.text = '';
+                              });
+                            }
+                          },
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.white,
+                            size: 26,
+                            semanticLabel: 'Apagar',
                           ),
                         ),
                       ),
                     ),
                     Flexible(
                       child: Container(
-                        child: ButtonTheme(
-                          minWidth: 1,
-
-                          // minWidth: 200.0,
-                          height: 48.0,
-                          child: RaisedButton(
-                            textColor: Colors.white,
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                setState(() {
-                                  this._userText = '';
-                                  userTextController.text = '';
-                                  textConvertedController.text = '';
-                                });
-                              }
-                            },
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                              size: 36.0,
-                              semanticLabel: 'Apagar',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: ButtonTheme(
-                          minWidth: 1,
-                          height: 48.0,
-                          child: RaisedButton(
-                            textColor: Colors.white,
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                               
-                              }
-                            },
-                            child: Icon(
-                              Icons.content_copy ,
-                              color: Colors.white,
-                              size: 36.0,
-                              semanticLabel: 'Copiar',
-                            ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {}
+                          },
+                          child: Icon(
+                            Icons.content_copy,
+                            color: Colors.white,
+                            size: 26,
+                            semanticLabel: 'Copiar',
                           ),
                         ),
                       ),
