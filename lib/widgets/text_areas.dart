@@ -18,7 +18,8 @@ class _TextAreasState extends State<TextAreas> {
     'minúsculas',
   ];
 
-  final _myController = TextEditingController();
+  final textConvertedController = TextEditingController();
+  final userTextController = TextEditingController();
 
   convertText(String str) {
     switch (_dropdownValue) {
@@ -48,6 +49,7 @@ class _TextAreasState extends State<TextAreas> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextFormField(
+                  controller: userTextController,
                   maxLines: 5,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -64,17 +66,16 @@ class _TextAreasState extends State<TextAreas> {
                     return null;
                   },
                   onChanged: (text) {
-                     setState(() {
-                        this._userText = text;
-                      });
-                    print("First text field: $text");
+                    setState(() {
+                      this._userText = text;
+                    });
                   },
                 ),
               ),
               Container(
                 margin: EdgeInsets.all(10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Container(
                       width: 140,
@@ -103,25 +104,79 @@ class _TextAreasState extends State<TextAreas> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 20,
+                    Flexible(
+                      child: Container(
+                        child: ButtonTheme(
+                          minWidth: 1,
+
+                          // minWidth: 200.0,
+                          height: 48.0,
+                          child: RaisedButton(
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  textConvertedController.text =
+                                      convertText(_userText);
+                                });
+                              }
+                            },
+                            child: Icon(
+                              Icons.sync,
+                              color: Colors.white,
+                              size: 36.0,
+                              semanticLabel: 'Converter',
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    Container(
-                      child: ButtonTheme(
-                        // minWidth: 200.0,
-                        height: 48.0,
-                        child: RaisedButton(
-                          color: Theme.of(context).primaryColor,
-                          textColor: Colors.white,
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                _myController.text = convertText(_userText);
-                              });
-                            }
-                          },
-                          child: const Text(
-                            'Converter',
+                    Flexible(
+                      child: Container(
+                        child: ButtonTheme(
+                          minWidth: 1,
+
+                          // minWidth: 200.0,
+                          height: 48.0,
+                          child: RaisedButton(
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  this._userText = '';
+                                  userTextController.text = '';
+                                  textConvertedController.text = '';
+                                });
+                              }
+                            },
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 36.0,
+                              semanticLabel: 'Apagar',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        child: ButtonTheme(
+                          minWidth: 1,
+                          height: 48.0,
+                          child: RaisedButton(
+                            textColor: Colors.white,
+                            onPressed: () {
+                              if (_formKey.currentState.validate()) {
+                               
+                              }
+                            },
+                            child: Icon(
+                              Icons.content_copy ,
+                              color: Colors.white,
+                              size: 36.0,
+                              semanticLabel: 'Copiar',
+                            ),
                           ),
                         ),
                       ),
@@ -137,7 +192,7 @@ class _TextAreasState extends State<TextAreas> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           child: TextFormField(
             maxLines: 5,
-            controller: _myController,
+            controller: textConvertedController,
             enabled: false,
             decoration: InputDecoration(
               border: OutlineInputBorder(
