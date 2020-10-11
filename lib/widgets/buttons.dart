@@ -6,7 +6,7 @@ class Buttons extends StatefulWidget {
   final userTextController;
   final textConvertedController;
   final formKey;
-  Function apagarTextoHandler;
+  final Function apagarTextoHandler;
   Buttons({
     @required this.userTextController,
     @required this.textConvertedController,
