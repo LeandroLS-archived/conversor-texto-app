@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../TextConverter.dart';
+
 import '../widgets/text_details_bar.dart';
+import '../widgets/buttons.dart';
 
 class TextAreas extends StatefulWidget {
   @override
@@ -9,31 +10,11 @@ class TextAreas extends StatefulWidget {
 
 class _TextAreasState extends State<TextAreas> {
   final _formKey = GlobalKey<FormState>();
-  String _dropdownValue = 'Selecione';
+
   String _userText;
-  static const List<String> opcoes = [
-    'Selecione',
-    'Reverso',
-    'MAÍUSCULAS',
-    'minúsculas',
-  ];
 
   final textConvertedController = TextEditingController();
   final userTextController = TextEditingController();
-
-  convertText(String str) {
-    switch (_dropdownValue) {
-      case 'Reverso':
-        return TextConverter.textReversed(str);
-        break;
-      case 'MAÍUSCULAS':
-        return TextConverter.textToUpper(str);
-        break;
-      case 'minúsculas':
-        return TextConverter.textToLower(str);
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,97 +55,11 @@ class _TextAreasState extends State<TextAreas> {
               ),
               Container(
                 margin: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      width: 140,
-                      height: 43,
-                      child: Card(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            DropdownButtonFormField<String>(
-                              decoration:
-                                  InputDecoration.collapsed(hintText: ''),
-                              validator: (value) => value == 'Selecione'
-                                  ? 'Selecione um valor.'
-                                  : null,
-                              value: _dropdownValue,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  _dropdownValue = newValue;
-                                });
-                              },
-                              items: opcoes.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                textConvertedController.text =
-                                    convertText(_userText);
-                              });
-                            }
-                          },
-                          child: Icon(
-                            Icons.sync,
-                            color: Colors.white,
-                            size: 26,
-                            semanticLabel: 'Converter',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                this._userText = '';
-                                userTextController.text = '';
-                                textConvertedController.text = '';
-                              });
-                            }
-                          },
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.white,
-                            size: 26,
-                            semanticLabel: 'Apagar',
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState.validate()) {}
-                          },
-                          child: Icon(
-                            Icons.content_copy,
-                            color: Colors.white,
-                            size: 26,
-                            semanticLabel: 'Copiar',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: Buttons(
+                  formKey: _formKey,
+                  textConvertedController: textConvertedController,
+                  userText: _userText,
+                  userTextController: userTextController,
                 ),
               ),
             ],

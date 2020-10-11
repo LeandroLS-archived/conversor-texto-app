@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-class TextDetailsBar extends StatefulWidget {
+
+class TextDetailsBar extends StatelessWidget {
   final String userText;
   TextDetailsBar(this.userText);
-  @override
-  _TextDetailsBarState createState() => _TextDetailsBarState();
-}
-
-class _TextDetailsBarState extends State<TextDetailsBar> {
   String get qtdCaracters {
-    if(widget.userText != null && widget.userText.isNotEmpty){
-      return widget.userText.length.toString();
-    } 
+    if (this.userText != null && this.userText.isNotEmpty) {
+      return this.userText.length.toString();
+    }
     return '0';
-    
   }
 
   String get qtdPalavras {
-    if(widget.userText != null && widget.userText.isNotEmpty){
-      var inputList = widget.userText.split(' ').join(', ').split('\n').join(', ').split(', ');
-      var inputListCleaned = inputList.where((word) => word.length >= 1 && word != '' && word != ' ');
+    if (this.userText != null && this.userText.isNotEmpty) {
+      var inputList = this
+          .userText
+          .split(' ')
+          .join(', ')
+          .split('\n')
+          .join(', ')
+          .split(', ');
+      var inputListCleaned = inputList
+          .where((word) => word.length >= 1 && word != '' && word != ' ');
       return inputListCleaned.length.toString();
     }
     return '0';
   }
+
   String get qtdLinhas {
-    if(widget.userText != null && widget.userText.isNotEmpty){
+    if (this.userText != null && this.userText.isNotEmpty) {
       LineSplitter ls = new LineSplitter();
-      List<String> lines = ls.convert(widget.userText);
+      List<String> lines = ls.convert(this.userText);
       return lines.length.toString();
     }
     return '0';
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
