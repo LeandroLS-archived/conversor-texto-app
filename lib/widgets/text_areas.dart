@@ -10,9 +10,12 @@ class TextAreas extends StatefulWidget {
 
 class _TextAreasState extends State<TextAreas> {
   final _formKey = GlobalKey<FormState>();
-
-  String _userText;
-
+  void apagarTexto(){
+      setState(() {
+        userTextController.text = '';
+        textConvertedController.text = '';
+      });
+  }
   final textConvertedController = TextEditingController();
   final userTextController = TextEditingController();
 
@@ -24,7 +27,7 @@ class _TextAreasState extends State<TextAreas> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              TextDetailsBar(this._userText),
+              TextDetailsBar(this.userTextController.text),
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -47,9 +50,7 @@ class _TextAreasState extends State<TextAreas> {
                     return null;
                   },
                   onChanged: (text) {
-                    setState(() {
-                      this._userText = text;
-                    });
+                    setState((){});
                   },
                 ),
               ),
@@ -58,8 +59,8 @@ class _TextAreasState extends State<TextAreas> {
                 child: Buttons(
                   formKey: _formKey,
                   textConvertedController: textConvertedController,
-                  userText: _userText,
                   userTextController: userTextController,
+                  apagarTextoHandler: apagarTexto
                 ),
               ),
             ],

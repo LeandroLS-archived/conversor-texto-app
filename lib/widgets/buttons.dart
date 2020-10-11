@@ -3,18 +3,15 @@ import 'package:flutter/services.dart';
 import '../TextConverter.dart';
 
 class Buttons extends StatefulWidget {
-  
-  String userText;
   final userTextController;
   final textConvertedController;
   final formKey;
-  
-
+  Function apagarTextoHandler;
   Buttons({
     @required this.userTextController,
     @required this.textConvertedController,
-    @required this.userText,
     @required this.formKey,
+    @required this.apagarTextoHandler
   });
   @override
   _ButtonsState createState() => _ButtonsState();
@@ -35,6 +32,7 @@ class _ButtonsState extends State<Buttons> {
         break;
     }
   }
+
   static const List<String> opcoes = [
     'Selecione',
     'Reverso',
@@ -81,7 +79,7 @@ class _ButtonsState extends State<Buttons> {
                 if (widget.formKey.currentState.validate()) {
                   setState(() {
                     widget.textConvertedController.text =
-                        convertText(widget.userText);
+                        convertText(widget.userTextController.text);
                   });
                 }
               },
@@ -99,11 +97,11 @@ class _ButtonsState extends State<Buttons> {
             child: ElevatedButton(
               onPressed: () {
                 if (widget.formKey.currentState.validate()) {
-                  setState(() {
-                    widget.userText = '';
-                    widget.userTextController.text = '';
-                    widget.textConvertedController.text = '';
-                  });
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Texto apagado.'),
+                  ));
+                  // widget.
+                  widget.apagarTextoHandler();
                 }
               },
               child: Icon(
@@ -123,6 +121,9 @@ class _ButtonsState extends State<Buttons> {
                   Clipboard.setData(
                     ClipboardData(text: widget.userTextController.text),
                   );
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Texto copiado.'),
+                  ));
                 }
               },
               child: Icon(
