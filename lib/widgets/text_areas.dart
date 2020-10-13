@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import '../widgets/text_details_bar.dart';
 import '../widgets/buttons.dart';
 
@@ -10,12 +10,13 @@ class TextAreas extends StatefulWidget {
 
 class _TextAreasState extends State<TextAreas> {
   final _formKey = GlobalKey<FormState>();
-  void apagarTexto(){
-      setState(() {
-        userTextController.text = '';
-        textConvertedController.text = '';
-      });
+  void apagarTexto() {
+    setState(() {
+      userTextController.text = '';
+      textConvertedController.text = '';
+    });
   }
+
   final textConvertedController = TextEditingController();
   final userTextController = TextEditingController();
 
@@ -50,18 +51,17 @@ class _TextAreasState extends State<TextAreas> {
                     return null;
                   },
                   onChanged: (text) {
-                    setState((){});
+                    setState(() {});
                   },
                 ),
               ),
               Container(
                 margin: EdgeInsets.all(10),
                 child: Buttons(
-                  formKey: _formKey,
-                  textConvertedController: textConvertedController,
-                  userTextController: userTextController,
-                  apagarTextoHandler: apagarTexto
-                ),
+                    formKey: _formKey,
+                    textConvertedController: textConvertedController,
+                    userTextController: userTextController,
+                    apagarTextoHandler: apagarTexto),
               ),
             ],
           ),
@@ -82,6 +82,31 @@ class _TextAreasState extends State<TextAreas> {
             ),
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (this._formKey.currentState.validate()) {
+                    Clipboard.setData(
+                      ClipboardData(text: textConvertedController.text),
+                    );
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Texto convertido copiado.'),
+                    ));
+                  }
+                },
+                child: Icon(
+                  Icons.content_copy,
+                  color: Colors.white,
+                  size: 26,
+                  semanticLabel: 'Copiar',
+                ),
+              ),
+            )
+          ],
+        )
       ],
     );
   }
