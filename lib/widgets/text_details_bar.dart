@@ -39,6 +39,7 @@ class TextDetailsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * 0.09,
       margin: EdgeInsets.only(bottom: 10),
       child: Card(
         child: Row(
@@ -47,27 +48,42 @@ class TextDetailsBar extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Caracteres'),
-                  Text(qtdCaracters),
+                  Text(
+                    'Caracteres',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(qtdCaracters, style: TextStyle(fontSize: 17)),
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Palavras'),
-                  Text(qtdPalavras),
+                  Text(
+                    'Palavras',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(qtdPalavras, style: TextStyle(fontSize: 17)),
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.all(10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Linhas'),
-                  Text(qtdLinhas),
+                  Text(
+                    'Linhas',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    qtdLinhas,
+                    style: TextStyle(fontSize: 17),
+                  ),
                 ],
               ),
             ),
